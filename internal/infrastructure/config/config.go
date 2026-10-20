@@ -7,7 +7,8 @@ import (
 	"github.com/spf13/viper"
 )
 
-var C Config
+// c TODO 不要用全局的导出变量
+var c Config
 
 // InitConfig 加载配置
 func InitConfig() {
@@ -26,13 +27,13 @@ func InitConfig() {
 	}
 
 	// 解析配置文件，反序列化到结构体
-	if err := v.Unmarshal(&C); err != nil {
+	if err := v.Unmarshal(&c); err != nil {
 		slog.Error(err.Error())
 		panic("配置解析文件失败")
 	}
 
 	// 校验配置文件
-	if err := validate(&C); err != nil {
+	if err := validate(&c); err != nil {
 		slog.Error(err.Error())
 		panic("配置文件校验失败")
 	}

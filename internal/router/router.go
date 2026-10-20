@@ -5,16 +5,15 @@ import (
 	"github.com/rainbrookx/rain-tool/internal/handler"
 )
 
-func InitRouter(group *gin.RouterGroup) {
-	bindUrlHandler(group, "/url")
+func RegisterRoute(group *gin.RouterGroup, allHandler *handler.AllHandler) {
+	bindUrlHandler(group, "/url", allHandler.Url)
 }
 
-func bindUrlHandler(group *gin.RouterGroup, relativePath string) {
+func bindUrlHandler(group *gin.RouterGroup, relativePath string, handler_ *handler.UrlHandler) {
 	r := group.Group(relativePath)
-	h := handler.NewUrlHandler()
 
-	r.POST("/encode-query", h.EncodeQuery)
-	r.POST("/decode-query", h.DecodeQuery)
-	r.POST("/encode-path", h.EncodePath)
-	r.POST("/decode-path", h.DecodePath)
+	r.POST("/encode-query", handler_.EncodeQuery)
+	r.POST("/decode-query", handler_.DecodeQuery)
+	r.POST("/encode-path", handler_.EncodePath)
+	r.POST("/decode-path", handler_.DecodePath)
 }
