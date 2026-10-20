@@ -35,5 +35,19 @@ func (h *IdentifierHandler) Convert(ctx *gin.Context) {
 }
 
 func (h *IdentifierHandler) PrefixAndSuffix(ctx *gin.Context) {
+	var req dto.IdentifierPrefixAndSuffixReq
 
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		ctx.JSON(200, dto.Fail("JSON 解析失败"))
+		return
+	}
+
+	data, err := identifierService.PrefixAndSuffix(ctx, req)
+	if err != nil {
+		ctx.JSON(200, dto.Fail("PrefixAndSuffix 失败"))
+		return
+	}
+
+	ctx.JSON(200, dto.Success(data))
 }

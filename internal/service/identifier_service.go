@@ -35,3 +35,23 @@ func (h *IdentifierService) Convert(ctx *gin.Context, req dto.IdentifierConvertR
 
 	return rs, nil
 }
+
+func (h *IdentifierService) PrefixAndSuffix(
+	ctx *gin.Context, req dto.IdentifierPrefixAndSuffixReq,
+) ([]*dto.IdentifierPrefixAndSuffixResp, error) {
+	var rs []*dto.IdentifierPrefixAndSuffixResp
+
+	originalTextList := req.OriginalTextList
+
+	for _, originalText := range originalTextList {
+		ps := util.IdentifierPrefixAndSuffix(originalText, req.PrefixAndSuffixList)
+
+		resp := dto.IdentifierPrefixAndSuffixResp{}
+		resp.OriginalText = originalText
+		resp.ModifiedList = ps
+
+		rs = append(rs, &resp)
+	}
+
+	return rs, nil
+}
