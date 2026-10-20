@@ -1,6 +1,8 @@
 package service
 
 import (
+	"strings"
+
 	"github.com/gin-gonic/gin"
 	"github.com/rainbrookx/rain-tool/internal/dto"
 	"github.com/rainbrookx/rain-tool/internal/util"
@@ -14,12 +16,13 @@ func NewUuidService() *UuidService {
 }
 
 func (s *UuidService) Generate(ctx *gin.Context) (*dto.UuidResp, error) {
-	uuid47 := util.UuidGenerate()
+	v4 := util.UuidGenerateV4()
+	v7 := util.UuidGenerateV7()
 
 	return &dto.UuidResp{
-		V4:         uuid47.V4,
-		V7:         uuid47.V7,
-		V4NoHyphen: uuid47.V4NoHyphen,
-		V7NoHyphen: uuid47.V7NoHyphen,
+		V4:         v4,
+		V7:         v7,
+		V4NoHyphen: strings.ReplaceAll(v4, "-", ""),
+		V7NoHyphen: strings.ReplaceAll(v7, "-", ""),
 	}, nil
 }

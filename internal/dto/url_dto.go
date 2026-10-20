@@ -5,5 +5,6 @@ type UrlReq struct {
 }
 
 type UrlResp struct {
-	Text string `json:"text"`
+	Query string `json:"query"`
+	Path  string `json:"path"`
 }

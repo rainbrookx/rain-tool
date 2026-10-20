@@ -16,10 +16,8 @@ func RegisterRoute(engine *gin.Engine, allHandler *handler.AllHandler) {
 func bindUrlHandler(group *gin.RouterGroup, relativePath string, handler_ *handler.UrlHandler) {
 	r := group.Group(relativePath)
 
-	r.POST("/encode-query", handler_.EncodeQuery)
-	r.POST("/decode-query", handler_.DecodeQuery)
-	r.POST("/encode-path", handler_.EncodePath)
-	r.POST("/decode-path", handler_.DecodePath)
+	r.POST("/encode", handler_.Encode)
+	r.POST("/decode", handler_.Decode)
 }
 
 func bindIdentifierHandler(group *gin.RouterGroup, relativePath string, handler_ *handler.IdentifierHandler) {

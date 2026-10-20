@@ -13,28 +13,29 @@ func NewUrlService() *UrlService {
 	return &UrlService{}
 }
 
-func (s *UrlService) EncodeQuery(ctx *gin.Context, req dto.UrlReq) (*dto.UrlResp, error) {
-	return &dto.UrlResp{Text: util.UrlEncodeQuery(req.Text)}, nil
+func (s *UrlService) Encode(ctx *gin.Context, req dto.UrlReq) (*dto.UrlResp, error) {
+	query := util.UrlEncodeQuery(req.Text)
+	path := util.UrlEncodePath(req.Text)
+
+	return &dto.UrlResp{
+		Query: query,
+		Path:  path,
+	}, nil
 }
 
-func (s *UrlService) DecodeQuery(ctx *gin.Context, req dto.UrlReq) (*dto.UrlResp, error) {
-	data, err := util.UrlDecodeQuery(req.Text)
+func (s *UrlService) Decode(ctx *gin.Context, req dto.UrlReq) (*dto.UrlResp, error) {
+	query, err := util.UrlDecodeQuery(req.Text)
 	if err != nil {
 		return nil, err
 	}
 
-	return &dto.UrlResp{Text: data}, nil
-}
-
-func (s *UrlService) EncodePath(ctx *gin.Context, req dto.UrlReq) (*dto.UrlResp, error) {
-	return &dto.UrlResp{Text: util.UrlEncodePath(req.Text)}, nil
-}
-
-func (s *UrlService) DecodePath(ctx *gin.Context, req dto.UrlReq) (*dto.UrlResp, error) {
-	data, err := util.UrlDecodePath(req.Text)
+	path, err := util.UrlDecodePath(req.Text)
 	if err != nil {
 		return nil, err
 	}
 
-	return &dto.UrlResp{Text: data}, nil
+	return &dto.UrlResp{
+		Query: query,
+		Path:  path,
+	}, nil
 }

@@ -17,8 +17,7 @@ func NewUrlHandler(allService *service.AllService) *UrlHandler {
 	return &UrlHandler{}
 }
 
-// EncodeQuery query 参数编码
-func (h *UrlHandler) EncodeQuery(ctx *gin.Context) {
+func (h *UrlHandler) Encode(ctx *gin.Context) {
 	var req dto.UrlReq
 
 	err := ctx.ShouldBindJSON(&req)
@@ -27,17 +26,16 @@ func (h *UrlHandler) EncodeQuery(ctx *gin.Context) {
 		return
 	}
 
-	data, err := urlService.EncodeQuery(ctx, req)
+	data, err := urlService.Encode(ctx, req)
 	if err != nil {
-		ctx.JSON(200, dto.Fail("EncodeQuery 失败"))
+		ctx.JSON(200, dto.Fail("Encode 失败"))
 		return
 	}
 
 	ctx.JSON(200, dto.Success(data))
 }
 
-// DecodeQuery query 解码
-func (h *UrlHandler) DecodeQuery(ctx *gin.Context) {
+func (h *UrlHandler) Decode(ctx *gin.Context) {
 	var req dto.UrlReq
 
 	err := ctx.ShouldBindJSON(&req)
@@ -46,47 +44,9 @@ func (h *UrlHandler) DecodeQuery(ctx *gin.Context) {
 		return
 	}
 
-	data, err := urlService.DecodeQuery(ctx, req)
+	data, err := urlService.Decode(ctx, req)
 	if err != nil {
-		ctx.JSON(200, dto.Fail("DecodeQuery 失败"))
-		return
-	}
-
-	ctx.JSON(200, dto.Success(data))
-}
-
-// EncodePath url 路径编码
-func (h *UrlHandler) EncodePath(ctx *gin.Context) {
-	var req dto.UrlReq
-
-	err := ctx.ShouldBindJSON(&req)
-	if err != nil {
-		ctx.JSON(200, dto.Fail("JSON 解析失败"))
-		return
-	}
-
-	data, err := urlService.EncodePath(ctx, req)
-	if err != nil {
-		ctx.JSON(200, dto.Fail("EncodePath 失败"))
-		return
-	}
-
-	ctx.JSON(200, dto.Success(data))
-}
-
-// DecodePath url 路径解码
-func (h *UrlHandler) DecodePath(ctx *gin.Context) {
-	var req dto.UrlReq
-
-	err := ctx.ShouldBindJSON(&req)
-	if err != nil {
-		ctx.JSON(200, dto.Fail("JSON 解析失败"))
-		return
-	}
-
-	data, err := urlService.DecodePath(ctx, req)
-	if err != nil {
-		ctx.JSON(200, dto.Fail("DecodePath 失败"))
+		ctx.JSON(200, dto.Fail("Decode 失败"))
 		return
 	}
 
