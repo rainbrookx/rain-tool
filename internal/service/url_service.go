@@ -13,11 +13,11 @@ func NewUrlService() *UrlService {
 	return &UrlService{}
 }
 
-func (s *UrlService) EncodeQuery(ctx *gin.Context, req *dto.UrlReq) (*dto.UrlResp, error) {
+func (s *UrlService) EncodeQuery(ctx *gin.Context, req dto.UrlReq) (*dto.UrlResp, error) {
 	return &dto.UrlResp{Text: util.UrlEncodeQuery(req.Text)}, nil
 }
 
-func (s *UrlService) DecodeQuery(ctx *gin.Context, req *dto.UrlReq) (*dto.UrlResp, error) {
+func (s *UrlService) DecodeQuery(ctx *gin.Context, req dto.UrlReq) (*dto.UrlResp, error) {
 	data, err := util.UrlDecodeQuery(req.Text)
 	if err != nil {
 		return nil, err
@@ -26,11 +26,11 @@ func (s *UrlService) DecodeQuery(ctx *gin.Context, req *dto.UrlReq) (*dto.UrlRes
 	return &dto.UrlResp{Text: data}, nil
 }
 
-func (s *UrlService) EncodePath(ctx *gin.Context, req *dto.UrlReq) (*dto.UrlResp, error) {
+func (s *UrlService) EncodePath(ctx *gin.Context, req dto.UrlReq) (*dto.UrlResp, error) {
 	return &dto.UrlResp{Text: util.UrlEncodePath(req.Text)}, nil
 }
 
-func (s *UrlService) DecodePath(ctx *gin.Context, req *dto.UrlReq) (*dto.UrlResp, error) {
+func (s *UrlService) DecodePath(ctx *gin.Context, req dto.UrlReq) (*dto.UrlResp, error) {
 	data, err := util.UrlDecodePath(req.Text)
 	if err != nil {
 		return nil, err

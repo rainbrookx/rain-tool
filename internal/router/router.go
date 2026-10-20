@@ -9,6 +9,7 @@ func RegisterRoute(engine *gin.Engine, allHandler *handler.AllHandler) {
 	group := engine.Group("/api")
 
 	bindUrlHandler(group, "/url", allHandler.Url)
+	bindIdentifierHandler(group, "/identifier", allHandler.Identifier)
 }
 
 func bindUrlHandler(group *gin.RouterGroup, relativePath string, handler_ *handler.UrlHandler) {
@@ -18,4 +19,11 @@ func bindUrlHandler(group *gin.RouterGroup, relativePath string, handler_ *handl
 	r.POST("/decode-query", handler_.DecodeQuery)
 	r.POST("/encode-path", handler_.EncodePath)
 	r.POST("/decode-path", handler_.DecodePath)
+}
+
+func bindIdentifierHandler(group *gin.RouterGroup, relativePath string, handler_ *handler.IdentifierHandler) {
+	r := group.Group(relativePath)
+
+	r.POST("/convert", handler_.Convert)
+	r.POST("/prefix-and-suffix", handler_.PrefixAndSuffix)
 }

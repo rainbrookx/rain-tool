@@ -27,7 +27,7 @@ func (h *UrlHandler) EncodeQuery(ctx *gin.Context) {
 		return
 	}
 
-	data, err := urlService.EncodeQuery(ctx, &req)
+	data, err := urlService.EncodeQuery(ctx, req)
 	if err != nil {
 		ctx.JSON(200, dto.Fail("EncodeQuery 失败"))
 		return
@@ -46,7 +46,7 @@ func (h *UrlHandler) DecodeQuery(ctx *gin.Context) {
 		return
 	}
 
-	data, err := urlService.DecodeQuery(ctx, &req)
+	data, err := urlService.DecodeQuery(ctx, req)
 	if err != nil {
 		ctx.JSON(200, dto.Fail("DecodeQuery 失败"))
 		return
@@ -65,7 +65,7 @@ func (h *UrlHandler) EncodePath(ctx *gin.Context) {
 		return
 	}
 
-	data, err := urlService.EncodePath(ctx, &req)
+	data, err := urlService.EncodePath(ctx, req)
 	if err != nil {
 		ctx.JSON(200, dto.Fail("EncodePath 失败"))
 		return
@@ -84,7 +84,7 @@ func (h *UrlHandler) DecodePath(ctx *gin.Context) {
 		return
 	}
 
-	data, err := urlService.DecodePath(ctx, &req)
+	data, err := urlService.DecodePath(ctx, req)
 	if err != nil {
 		ctx.JSON(200, dto.Fail("DecodePath 失败"))
 		return
