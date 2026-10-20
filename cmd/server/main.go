@@ -18,8 +18,7 @@ func main() {
 
 	// gin 初始化和注册路由
 	engine := gin.Default()
-	group := engine.Group("/api")
-	router.RegisterRoute(group, allHandler)
+	router.RegisterRoute(engine, allHandler)
 
 	if err := engine.Run("127.0.0.1:8080"); err != nil {
 		slog.Info(err.Error())

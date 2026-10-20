@@ -5,7 +5,9 @@ import (
 	"github.com/rainbrookx/rain-tool/internal/handler"
 )
 
-func RegisterRoute(group *gin.RouterGroup, allHandler *handler.AllHandler) {
+func RegisterRoute(engine *gin.Engine, allHandler *handler.AllHandler) {
+	group := engine.Group("/api")
+
 	bindUrlHandler(group, "/url", allHandler.Url)
 }
 

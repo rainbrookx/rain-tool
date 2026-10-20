@@ -8,7 +8,7 @@ type AllHandler struct {
 
 func NewAllHandler(allService *service.AllService) *AllHandler {
 	var h AllHandler
-	h.Url = NewUrlHandler()
+	h.Url = NewUrlHandler(allService)
 
 	return &h
 }
