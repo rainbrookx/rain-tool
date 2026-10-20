@@ -15,7 +15,7 @@ func NewIdentifierService() *IdentifierService {
 	return &IdentifierService{}
 }
 
-func (h *IdentifierService) Convert(ctx *gin.Context, req dto.IdentifierConvertReq) ([]*dto.IdentifierConvertResp, error) {
+func (s *IdentifierService) Convert(ctx *gin.Context, req dto.IdentifierConvertReq) ([]*dto.IdentifierConvertResp, error) {
 	var rs []*dto.IdentifierConvertResp
 
 	originalTextList := req.OriginalTextList
@@ -36,7 +36,7 @@ func (h *IdentifierService) Convert(ctx *gin.Context, req dto.IdentifierConvertR
 	return rs, nil
 }
 
-func (h *IdentifierService) PrefixAndSuffix(
+func (s *IdentifierService) PrefixAndSuffix(
 	ctx *gin.Context, req dto.IdentifierPrefixAndSuffixReq,
 ) ([]*dto.IdentifierPrefixAndSuffixResp, error) {
 	var rs []*dto.IdentifierPrefixAndSuffixResp

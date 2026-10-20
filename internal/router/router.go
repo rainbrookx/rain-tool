@@ -10,6 +10,7 @@ func RegisterRoute(engine *gin.Engine, allHandler *handler.AllHandler) {
 
 	bindUrlHandler(group, "/url", allHandler.Url)
 	bindIdentifierHandler(group, "/identifier", allHandler.Identifier)
+	bindUuidHandler(group, "/uuid", allHandler.Uuid)
 }
 
 func bindUrlHandler(group *gin.RouterGroup, relativePath string, handler_ *handler.UrlHandler) {
@@ -26,4 +27,10 @@ func bindIdentifierHandler(group *gin.RouterGroup, relativePath string, handler_
 
 	r.POST("/convert", handler_.Convert)
 	r.POST("/prefix-and-suffix", handler_.PrefixAndSuffix)
+}
+
+func bindUuidHandler(group *gin.RouterGroup, relativePath string, handler_ *handler.UuidHandler) {
+	r := group.Group(relativePath)
+
+	r.POST("/generate", handler_.Generate)
 }
