@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/rainbrookx/rain-tool/internal/handler"
+	"github.com/rainbrookx/rain-tool/internal/infrastructure/config"
 	"github.com/rainbrookx/rain-tool/internal/router"
 	"github.com/rainbrookx/rain-tool/internal/service"
 )
@@ -20,7 +21,7 @@ func main() {
 	engine := gin.Default()
 	router.RegisterRoute(engine, allHandler)
 
-	if err := engine.Run("127.0.0.1:8080"); err != nil {
+	if err := engine.Run(config.C.RainTool.Addr); err != nil {
 		slog.Info(err.Error())
 		return
 	}
@@ -30,4 +31,5 @@ func main() {
 
 func initMain() {
 	// TODO 将config、DB、Redis等以返回值形式给 main，不要使用全局变量导出
+	config.InitConfig()
 }

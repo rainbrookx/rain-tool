@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/rainbrookx/rain-tool/internal/dto"
 	"github.com/rainbrookx/rain-tool/internal/service"
+	"github.com/rainbrookx/rain-tool/internal/util_inner"
 )
 
 type UuidHandler struct {
@@ -18,7 +19,17 @@ func NewUuidHandler(allService *service.AllService) *UuidHandler {
 }
 
 func (h *UuidHandler) Generate(ctx *gin.Context) {
-	data, err := uuidService.Generate(ctx)
+	var req dto.UuidReq
+
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		ctx.JSON(200, dto.Fail("JSON 解析失败"))
+		return
+	}
+
+	req.Quantity = util_inner.ClampNumber(req.Quantity, 1, 1000)
+
+	data, err := uuidService.Generate(ctx, req)
 	if err != nil {
 		ctx.JSON(200, dto.Fail("Generate 失败"))
 		return

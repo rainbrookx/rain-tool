@@ -15,14 +15,32 @@ func NewUuidService() *UuidService {
 	return &UuidService{}
 }
 
-func (s *UuidService) Generate(ctx *gin.Context) (*dto.UuidResp, error) {
-	v4 := util.UuidGenerateV4()
-	v7 := util.UuidGenerateV7()
+func (s *UuidService) Generate(ctx *gin.Context, req dto.UuidReq) ([]*dto.UuidResp, error) {
+	var rs []*dto.UuidResp
 
-	return &dto.UuidResp{
-		V4:         v4,
-		V7:         v7,
-		V4NoHyphen: strings.ReplaceAll(v4, "-", ""),
-		V7NoHyphen: strings.ReplaceAll(v7, "-", ""),
-	}, nil
+	for range req.Quantity {
+		v4 := util.UuidGenerateV4()
+		v7 := util.UuidGenerateV7()
+
+		resp := &dto.UuidResp{
+			V4:         v4,
+			V7:         v7,
+			V4NoHyphen: strings.ReplaceAll(v4, "-", ""),
+			V7NoHyphen: strings.ReplaceAll(v7, "-", ""),
+		}
+
+		rs = append(rs, resp)
+	}
+
+	return rs, nil
+
+	//v4 := util.UuidGenerateV4()
+	//v7 := util.UuidGenerateV7()
+	//
+	//return &dto.UuidResp{
+	//	V4:         v4,
+	//	V7:         v7,
+	//	V4NoHyphen: strings.ReplaceAll(v4, "-", ""),
+	//	V7NoHyphen: strings.ReplaceAll(v7, "-", ""),
+	//}, nil
 }

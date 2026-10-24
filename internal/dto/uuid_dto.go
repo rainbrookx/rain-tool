@@ -1,5 +1,9 @@
 package dto
 
+type UuidReq struct {
+	Quantity int `json:"quantity"`
+}
+
 type UuidResp struct {
 	V4         string `json:"v4"`
 	V7         string `json:"v7"`

@@ -2,13 +2,12 @@ package config
 
 import (
 	"log/slog"
-	"time"
 
 	"github.com/spf13/viper"
 )
 
-// c TODO 不要用全局的导出变量
-var c Config
+// C TODO 不要用全局的导出变量
+var C Config
 
 // InitConfig 加载配置
 func InitConfig() {
@@ -27,48 +26,24 @@ func InitConfig() {
 	}
 
 	// 解析配置文件，反序列化到结构体
-	if err := v.Unmarshal(&c); err != nil {
+	if err := v.Unmarshal(&C); err != nil {
 		slog.Error(err.Error())
 		panic("配置解析文件失败")
 	}
 
 	// 校验配置文件
-	if err := validate(&c); err != nil {
+	if err := validate(&C); err != nil {
 		slog.Error(err.Error())
 		panic("配置文件校验失败")
 	}
 }
 
 type Config struct {
-	Database DatabaseConfig `mapstructure:"database"`
-	Redis    RedisConfig    `mapstructure:"redis"`
+	RainTool RainToolConfig `mapstructure:"rain_tool"`
 }
 
-// DatabaseConfig 数据库配置
-type DatabaseConfig struct {
-	MySQL MySQLConfig `mapstructure:"mysql"`
-}
-
-// MySQLConfig MySQL 配置
-type MySQLConfig struct {
-	Host     string `mapstructure:"host"`
-	Port     int    `mapstructure:"port"`
-	Username string `mapstructure:"username"`
-	Password string `mapstructure:"password"`
-	Dbname   string `mapstructure:"dbname"`
-}
-
-// RedisConfig Redis 配置
-type RedisConfig struct {
-	Host         string        `mapstructure:"host"`
-	Port         int           `mapstructure:"port"`
-	Password     string        `mapstructure:"password"`
-	Dbname       int           `mapstructure:"dbname"`
-	PoolSize     int           `mapstructure:"pool_size"`
-	MinIdleConns int           `mapstructure:"min_idle_conns"`
-	DialTimeout  time.Duration `mapstructure:"dial_timeout"`
-	ReadTimeout  time.Duration `mapstructure:"read_timeout"`
-	WriteTimeout time.Duration `mapstructure:"write_timeout"`
+type RainToolConfig struct {
+	Addr string `mapstructure:"addr"`
 }
 
 func validate(c *Config) error {
